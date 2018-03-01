@@ -46,8 +46,6 @@ module.exports = function (app) {
       }
     }
 
-    console.log(diffArray);
-
     //sets a min difference to go down from
     var minDiff = 40;
 
@@ -66,8 +64,6 @@ module.exports = function (app) {
       }
     }
 
-    console.log(diffIndex);
-    console.log(friendData[diffIndex].friendName);
     //stores the name of the user's new best friend
     var friendMatch = friendData[diffIndex];
 
