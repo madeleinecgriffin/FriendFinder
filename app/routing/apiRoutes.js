@@ -33,27 +33,46 @@ module.exports = function(app) {
     // It will do this by sending out the value "true" have a table
     // req.body is available since we're using the body-parser middleware
     
-    console.log(req.body);
-    friendData.push(req.body);
+    var userData = req.body;
+    var diffArray = [];
 
-    /*for (let i = 0; i < friendData.length; i++) {
+    for (let i = 0; i < friendData.length; i++) {
         var element = friendData[i];
-        var userEl = userName[i];
         
-        if (element.friendName != userEl.friendName) {
+        if (element.friendName != userData.friendName) {
             var totalDiff = 0;
 
-            for (let j = 0; j < element.friendAnswers.length; j++) {
-                var storeFriend = element.friendAnswers[j];
-                var storeUser = userName.friendAnswers[j];
+            for (let j = 0; j < element["friendAnswers[]"].length; j++) {
+                var storeFriend = element["friendAnswers[]"][j];
+                var question = j + 1;
+                var storeUser = userData["friendAnswers[]"][j];
                 var storeDifference = Math.abs(storeFriend - storeUser);
                 totalDiff = totalDiff + storeDifference;
             }
-
             diffArray.push(totalDiff);
-
         }
     }
-    console.log(diffArray);*/
+
+    console.log(diffArray);
+
+    var minDiff = 40;
+    var diffIndex;
+
+    for (let i = 0; i < diffArray.length; i++) {
+      const element = diffArray[i];
+      if (element < minDiff) {
+        minDiff = element;
+        diffIndex = i;   
+      }
+      else {
+        minDiff = minDiff;
+      }
+    }
+
+    console.log(diffIndex);
+    console.log(friendData[diffIndex].friendName);
+    var friendMatch = friendData[diffIndex].friendName;
+
+    friendData.push(req.body);
   });
 }
