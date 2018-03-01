@@ -5,8 +5,8 @@
 
 var friendArray = [
   {
-    friendName: "haha",
-    friendImage: "lskjlkas",
+    friendName: "Sleepy Mittens",
+    friendImage: "http://www.petwave.com/-/media/Images/Center/Care-and-Nutrition/Cat/Kittensv2/Kitten-3.ashx",
     "friendAnswers[]": [
       "2",
       "1",
@@ -21,8 +21,8 @@ var friendArray = [
     ]
   },
   {
-    friendName: "haha2",
-    friendImage: "lskjsg;sbjndlglkas",
+    friendName: "Buttercup",
+    friendImage: "http://r.ddmcdn.com/w_606/s_f/o_1/cx_0/cy_15/cw_606/ch_404/APL/uploads/2014/06/10-kitten-cuteness-1.jpg",
     "friendAnswers[]": [
       "5",
       "1",
@@ -37,8 +37,8 @@ var friendArray = [
     ]
   },
   {
-    friendName: "haha3",
-    friendImage: "lskjlkttttttttttas",
+    friendName: "Mr Sassy Whiskers",
+    friendImage: "https://www.petmd.com/sites/default/files/cat%20and%20bee%20418336594.jpg",
     "friendAnswers[]": [
       "2",
       "4",

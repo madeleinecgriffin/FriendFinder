@@ -9,60 +9,57 @@ var friendData = require("../data/friends");
 // ROUTING
 // ===============================================================================
 
-module.exports = function(app) {
+module.exports = function (app) {
   // API GET Requests
-  // Below code handles when users "visit" a page.
-  // In each of the below cases when a user visits a link
-  // (ex: localhost:PORT/api/admin... they are shown a JSON of the data in the table)
   // ---------------------------------------------------------------------------
 
-  app.get("/api/friends", function(req, res) {
+  app.get("/api/friends", function (req, res) {
     res.json(friendData);
   });
 
   // API POST Requests
-  // Below code handles when a user submits a form and thus submits data to the server.
-  // In each of the below cases, when a user submits form data (a JSON object)
-  // ...the JSON is pushed to the appropriate JavaScript array
-  // (ex. User fills out a reservation request... this data is then sent to the server...
-  // Then the server saves the data to the tableData array)
   // ---------------------------------------------------------------------------
 
-  app.post("/api/friends", function(req, res) {
-    // Note the code here. Our "server" will respond to requests and let users know if they have a table or not.
-    // It will do this by sending out the value "true" have a table
-    // req.body is available since we're using the body-parser middleware
-    
+  app.post("/api/friends", function (req, res) {
+
     var userData = req.body;
+
+    //initialize a variable for storing the difference score for the list of possible friends
     var diffArray = [];
 
+    //cycles through all friends on the list to determine the total difference in score between the user and each possible friend
+    //stores these total differences in diffArray
     for (let i = 0; i < friendData.length; i++) {
-        var element = friendData[i];
-        
-        if (element.friendName != userData.friendName) {
-            var totalDiff = 0;
+      var element = friendData[i];
 
-            for (let j = 0; j < element["friendAnswers[]"].length; j++) {
-                var storeFriend = element["friendAnswers[]"][j];
-                var question = j + 1;
-                var storeUser = userData["friendAnswers[]"][j];
-                var storeDifference = Math.abs(storeFriend - storeUser);
-                totalDiff = totalDiff + storeDifference;
-            }
-            diffArray.push(totalDiff);
+      if (element.friendName != userData.friendName) {
+        var totalDiff = 0;
+
+        for (let j = 0; j < element["friendAnswers[]"].length; j++) {
+          var storeFriend = element["friendAnswers[]"][j];
+          var question = j + 1;
+          var storeUser = userData["friendAnswers[]"][j];
+          var storeDifference = Math.abs(storeFriend - storeUser);
+          totalDiff = totalDiff + storeDifference;
         }
+        diffArray.push(totalDiff);
+      }
     }
 
     console.log(diffArray);
 
+    //sets a min difference to go down from
     var minDiff = 40;
+
+    //initialize a variable to store the index of the lowest difference score aka your new best friend's index
     var diffIndex;
 
+    //cycles through the array of total differences to determine the index that has the lowest difference
     for (let i = 0; i < diffArray.length; i++) {
       const element = diffArray[i];
       if (element < minDiff) {
         minDiff = element;
-        diffIndex = i;   
+        diffIndex = i;
       }
       else {
         minDiff = minDiff;
@@ -71,8 +68,12 @@ module.exports = function(app) {
 
     console.log(diffIndex);
     console.log(friendData[diffIndex].friendName);
-    var friendMatch = friendData[diffIndex].friendName;
+    //stores the name of the user's new best friend
+    var friendMatch = friendData[diffIndex];
 
+    //pushes user to list of friends so they can be compared with future users
     friendData.push(req.body);
+
+    res.json(friendMatch);
   });
 }
